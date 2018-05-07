@@ -5,6 +5,9 @@ def convert_temp(gen):
     for value in gen:
         yield (value * 3.3 - 0.5) * 100
 
+def fahrenheit(celcius=22):
+    return (celcius * (9/5) + 32)
+
 adc = MCP3008(channel=1)
 
 for temp in convert_temp(adc.values):
