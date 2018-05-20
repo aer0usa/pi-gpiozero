@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pi Zero Temperature Experiments</title>
+  <script>
+    var myXhr = new XMLHttpRequest();
+
+    var messageLabel = '';
+
+    function updateMessage(msg) {
+        var message = document.getElementById('statShow');
+        message.innerHTML = msg;
+
+    }
+
+    function xhrCallback() {
+      if(myXhr.readyState === XMLHttpRequest.DONE && myXhr.status === 200) {
+        console.log('XHR Ready!', myXhr);
+        updateMessage(myXhr.responseText);
+      } else if(myXhr.readyState === XMLHttpRequest.DONE) {
+        console.log('XHR Error', myXhr);
+        updateMessage(myXhr.responseText + ' Error');
+      }
+    };
+
+    myXhr.onreadystatechange = xhrCallback;
+
+    function xhrFetch(url) {
+      myXhr.open('GET', url, true);
+      myXhr.send();
+    }
+
+    function getTemp() {
+      messageLabel = 'Temperature';
+      console.log('getTemp');
+      xhrFetch('/getTemp');
+    }
+
+    getTemp();
+    setInterval(getTemp, 1000);
+
+  </script>
+</head>
+<body>
+  <h1>{{ name }}</h1>
+
+ <div name='statShow' id='statShow'>...</div>
+</body>
+</html>

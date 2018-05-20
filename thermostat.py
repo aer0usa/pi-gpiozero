@@ -14,6 +14,12 @@ def convert_temp(gen):
 def immediate_temp(rawVal):
     return (rawVal * 3.3 - 0.5) * 100
 
+def immediate_fahrenheit():
+    return round(fahrenheit(immediate_temp(adc.value)), 1)
+
+def thermostat_setting():
+    return round(thermostat_value(pot.value), 1)
+
 # Set thermostat from 50 to 90 degrees
 def thermostat_value(rawVal):
     return ((rawVal * 40) + 50)
@@ -27,9 +33,9 @@ def activate(state=False):
     else:
         led.off()
 
-while True:
-    currentTemp = round(fahrenheit(immediate_temp(adc.value)), 1)
-    thermostat_setting = round(thermostat_value(pot.value), 1)
-    print('Temp ', currentTemp, ' / ', thermostat_setting, ' F')
-    activate(currentTemp < thermostat_setting)
-    sleep(1)
+# while True:
+#     currentTemp = round(fahrenheit(immediate_temp(adc.value)), 1)
+#     thermostat_setting = round(thermostat_value(pot.value), 1)
+#     print('Temp ', currentTemp, ' / ', thermostat_setting, ' F')
+#     activate(currentTemp < thermostat_setting)
+#     sleep(1)
